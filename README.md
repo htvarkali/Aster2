@@ -6,7 +6,7 @@
 
 Aster helps people in the same room find common ground and start a conversation. Create a profile, meet someone nearby, tap phones, and confirm each other to reveal shared interests and conversation starters grounded in what you both chose to share.
 
-This is a hackathon adaptation of [Bump](https://github.com/bump-hackgt/bump) for the theme **Crafting Constellations**. Aster is the confirmed name. The adaptation adds Aster branding, a redesigned website, and updated documentation. Native functionality, matching logic, AI integrations, the browser app mockup, and original phone artwork come from Bump. The current native changes still need an Xcode build and physical-device validation.
+Aster brings the **Crafting Constellations** theme to nearby introductions: shared interests become connections, and connections become a personal constellation. The project includes a native iOS app, an interactive website, and an optional backend. The current native revision still needs an Xcode build and physical-device validation.
 
 ## Crafting Constellations
 
@@ -22,7 +22,7 @@ The theme describes the experience we want to create. The website illustrates it
 - **Reveal grounded common ground.** Matching prioritizes specific shared interests, can identify broader shared topics, and separates complementary conversation prompts from exact overlap. It does not calculate compatibility or population rarity.
 - **Generate conversation starters.** Consented xAI Grok requests go through the backend. Apple Foundation Models, when available, and deterministic templates provide local fallbacks. The source is labelled, and one phone generates the result for both participants.
 - **Keep a local connection history.** Save people and their shared interests, review connections, delete records, and privately record which topics came up in conversation.
-- **Surface nearby teasers.** StreetPass includes a foreground nearby-encounter flow using MultipeerConnectivity and UWB. Its limited broadcast contains a name, optional thumbnail, and up to five interests before a confirmed bump.
+- **Surface nearby teasers.** StreetPass includes a foreground nearby-encounter flow using MultipeerConnectivity and UWB. Its limited broadcast contains a name, optional thumbnail, and up to five interests before a confirmed meeting.
 
 The post-conversation profile-unlock and match celebration flow currently uses `LocalMutualLikeResolver`, which derives a simulated partner response locally. It is a demo mechanism, not a real reciprocal follow-up service.
 
@@ -39,15 +39,15 @@ The website is separate from the native app. The mockup uses sample data and sim
 
 ## Website design
 
-The active website adapts the landing-page UI from [Lanyardly](https://github.com/tejavarkali-hub/lanyardly): deep blue surfaces, Geist typography, a moving blue dither background, a draggable 3D lanyard, bordered feature cards, a dashed step-by-step journey and a rounded closing panel. The badge uses Aster artwork and can be personalized and downloaded locally as a PNG.
+The website uses deep blue surfaces, Geist typography, a moving blue dither background, a draggable 3D lanyard, bordered feature cards, a dashed step-by-step journey and a rounded closing panel. The badge uses Aster artwork and can be personalized and downloaded locally as a PNG.
 
-Motion can be paused, with a static fallback for reduced motion or unavailable WebGL. The badge is an illustrative website interaction, separate from the native app and its saved profiles. Event-only dates, sponsors and registration links from the template are replaced with Aster product content and working destinations.
+Motion can be paused, with a static fallback for reduced motion or unavailable WebGL. The badge is an illustrative website interaction, separate from the native app and its saved profiles. Navigation links lead to project source and sections of the page.
 
 ## Free iPhone development path
 
 Xcode and Apple's [free Personal Team](https://developer.apple.com/help/account/basics/about-your-developer-account) support testing on your own iPhone without paid developer membership. Free provisioning requires rebuilding after seven days. This checkout has no configured xAI key and defaults to local mode: typed onboarding, local drafting, grounded conversation starters, saved connections and Multipeer transport. Recorded transcription and Grok require a separately configured cloud service and are optional.
 
-The inherited public tunnel has been removed from both app build defaults. A runtime server override can point to your own reachable server if needed, and now takes priority over a build default. The user plans to use a friend's MacBook for Xcode; full signing and native installation have not been verified. The transfer and installation walkthrough is in [`ios/README.md`](ios/README.md).
+Both app build defaults use an empty server URL. A runtime server override can point to your own reachable server if needed and takes priority over a build default. The transfer, signing and installation walkthrough is in [`ios/README.md`](ios/README.md).
 
 For the handoff, use the [copy-paste Codex prompt](ios/README.md#copy-into-codex-on-the-friends-mac) and [two-phone rehearsal checklist](ios/README.md#two-phone-rehearsal-checklist). The website can be shown separately on the Mac; it does not pair the phones.
 
@@ -94,10 +94,10 @@ The server listens on port 8787. A key is required for xAI features; the relay c
 Requires a Mac with **Xcode 26+**. The deployment target is **iOS 17**; optional on-device AI requires iOS 26 and an eligible device. Real sensor and pairing validation requires two physical iPhones.
 
 ```sh
-open ios/UWBBumpTest.xcodeproj
+open ios/*.xcodeproj
 ```
 
-Choose your signing team and bundle identifier in Xcode, select a connected iPhone, and run the `UWBBumpTest` scheme. Grant the requested Nearby Interaction, Local Network, Motion, and Microphone permissions as needed. Repeat on the second phone.
+Choose your signing team and bundle identifier in Xcode, select a connected iPhone, and run the app scheme identified in the [iOS setup guide](ios/README.md). Grant the requested Nearby Interaction, Local Network, Motion, and Microphone permissions as needed. Repeat on the second phone.
 
 For the free local demo, choose **Keep everything on this phone** during onboarding and type your introduction. No backend or API key is needed. Leave the Server URL empty and choose **Nearby only** in Testing tools. Complete profiles on both phones, keep the app open, tap phones, confirm the partner on both sides, and save the result. A single phone can test onboarding and UI; a real exchange requires two phones.
 
@@ -120,18 +120,13 @@ npm --prefix backend test
 npm --prefix web run build
 ```
 
-For an unsigned iOS compile check on a Mac with the required SDK:
+For an unsigned iOS compile check and Simulator tests on a Mac with the required SDK, follow the [native build commands](ios/README.md#optional-build-and-test-commands).
 
-```sh
-xcodebuild -project ios/UWBBumpTest.xcodeproj -scheme UWBBumpTest \
-  -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO build
-```
-
-The active blue Lanyardly port passed the production build and desktop/narrow-screen browser review. The 3D badge renders and can be dragged; local name/color application, PNG export, pause, and in-page destinations work. No application errors were observed. Rapier logs an upstream WASM initialization deprecation warning. Reduced-motion handling was reviewed in source; the browser's system preference was not changed.
+The blue website passed the production build and desktop/narrow-screen browser review. The 3D badge renders and can be dragged; local name/color application, PNG export, pause, and in-page destinations work. No application errors were observed. Rapier logs an upstream WASM initialization deprecation warning. Reduced-motion handling was reviewed in source; the browser's system preference was not changed.
 
 All 78 Swift files passed syntax parsing during the native branding pass, and the app/widget plists and Xcode project passed plist validation. Full Xcode is not installed in this local environment, so no native compile or physical-device test was run.
 
-The current merged native build and two-phone journey need fresh Xcode and hardware validation. [`RESULTS.md`](RESULTS.md) contains unfilled physical-test templates, so there are no measured accuracy, latency, crowded-room, or UWB reliability claims. Simulator fixtures demonstrate screens, not sensor performance. Rooms are currently capped at eight participating phones.
+The current native build and two-phone journey need fresh Xcode and hardware validation. [`RESULTS.md`](RESULTS.md) contains unfilled physical-test templates, so there are no measured accuracy, latency, crowded-room, or UWB reliability claims. Simulator fixtures demonstrate screens, not sensor performance. Rooms are currently capped at eight participating phones.
 
 There is no account system, chat service, or durable follow-up backend. Profiles, saved connections, and ratings are stored as local JSON. The relay holds temporary messages in memory and currently has no authentication. Multipeer sessions require encryption; relay frames are forwarded as base64 payloads, without application-level end-to-end encryption. Use the relay for controlled testing.
 
@@ -144,16 +139,7 @@ Cloud consent controls AI processing, not the relay transport. With consent, int
 - Explore a visual constellation of saved connections after the core meeting flow is validated.
 - Replace simulated reciprocal follow-up with a real consented service if that feature is pursued.
 
-## Foundation and attribution
+## Third-party notices
 
-Aster builds on the original **Bump**, created for HackGT. The existing implementation and original assets are the foundation of this adaptation.
-
-- [Original GitHub repository](https://github.com/bump-hackgt/bump)
-- [Original Devpost submission](https://devpost.com/software/bump-it1fjy)
-- Original contributors: [@jsberesford](https://github.com/jsberesford), [@CharanPeeriga](https://github.com/CharanPeeriga), [@lui-gi](https://github.com/lui-gi), and [@abrar-sarwar](https://github.com/abrar-sarwar).
-
-## License
-
-The source repository does not currently include a project license file. No new license has been selected for this adaptation.
-
-The website layout, dither shader, 3D card model and strap are adapted from [tejavarkali-hub/lanyardly](https://github.com/tejavarkali-hub/lanyardly), whose README credits Tailark, React Bits and the React Three Fiber/Rapier ecosystem. Aster-specific badge artwork and product copy are part of this adaptation.
+Source acknowledgments and license information are documented in
+[`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).

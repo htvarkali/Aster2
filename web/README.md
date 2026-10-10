@@ -2,7 +2,7 @@
 
 Aster is the Crafting Constellations adaptation of [Bump](https://github.com/bump-hackgt/bump). This standalone website uses the landing-page UI from [Lanyardly](https://github.com/tejavarkali-hub/lanyardly), adapted to React, TypeScript, and Vite.
 
-The reference's layout, Geist typography, animated dither background, draggable 3D lanyard, feature cards, journey layout, rounded closing panel, and footer are retained. At the user's request, the monochrome palette is replaced with navy surfaces, cobalt accents, and pale blue text. Event-specific dates, sponsors, venue, registration links, social posting, and analytics are replaced with accurate Aster content and real links. The original Bump team remains credited in the root README.
+The reference's layout, Geist typography, animated dither background, draggable 3D lanyard, feature cards, journey layout, rounded closing panel, and footer are retained. At the user's request, the monochrome palette is replaced with navy surfaces, cobalt accents, and pale blue text. Event-specific dates, sponsors, venue, registration links, social posting, and analytics are replaced with accurate Aster content and real links. The original team is credited in [`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md).
 
 ## Run locally
 

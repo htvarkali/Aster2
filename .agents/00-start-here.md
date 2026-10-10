@@ -11,19 +11,21 @@ cloned from `https://github.com/bump-hackgt/bump` at `6faf492`. Brand text and
 logo assets are updated. The user rejected the ivory constellation website and
 asked to copy `tejavarkali-hub/lanyardly`. The active website now uses that
 reference's Geist layout, dither background, draggable 3D badge, bordered
-feature cards and dashed journey. Bump and Lanyardly are credited in README.md.
+feature cards and dashed journey. Original source credits are in THIRD_PARTY_NOTICES.md.
 The latest request changes black page surfaces to a navy/cobalt blue palette,
 including controls, shader, badge, favicon and fallbacks.
 The current local branch is `crafting-constellations`. The latest publication
 destination is `https://github.com/htvarkali/Aster2`, supplied by the user as an
-empty repository with default branch main. Publish the complete current source
-as a single root import commit, with the exact message
+empty repository with default branch main. The complete source was initially
+published as a single root import commit, with the exact message
 `uploaded files from vs code`, authored and committed by GitHub account
 `htvarkali` using `64799163+htvarkali@users.noreply.github.com`. Do not import the
-original Bump commit history or add other commit authors. Aster's prior
+original Bump commit history or add other commit authors. Use the same user
+identity for further updates. Aster's prior
 publication was reset to a single import with the user's approval; a local
-bundle preserves its earlier history. Source buttons now point to Aster2;
-original Bump and Lanyardly attribution stay in the files. The friend-Mac Codex
+bundle preserves its earlier history. Source buttons now point to Aster2.
+Original source attribution is retained in `THIRD_PARTY_NOTICES.md` and the
+website/footer documentation; the main README focuses on Aster. The friend-Mac Codex
 prompt and two-phone rehearsal checklist are in `ios/README.md`.
 
 This checkout runs on macOS 26.5.2 with Node/npm available. Full Xcode is not installed.

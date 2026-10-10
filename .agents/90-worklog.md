@@ -530,3 +530,15 @@ Branch `landing-page-design`. **Uncommitted** at time of writing.
   verified local onboarding labels, included-interest defaults, the Friends
   tab, and host-only manual selection. The guide excludes -BumpDemo from real
   trials because that flag forces fixture screens and can seed saved fixture data.
+
+## 2026-10-10: Aster-focused main README (Codex)
+
+- User requested removing old project names and adaptation/duplicate wording
+  from the GitHub README. Rewrote the main README around Aster's product,
+  Crafting Constellations theme, current features and free setup.
+- Moved the existing original application/team and website-template credits
+  into THIRD_PARTY_NOTICES.md, linked generically from the main README.
+  Preserved source comments, font metadata and other component documentation.
+- Main README uses the project glob to open Xcode and links to detailed native
+  build commands, avoiding legacy identifiers without renaming native targets.
+  Native build and physical-device validation remain pending.
