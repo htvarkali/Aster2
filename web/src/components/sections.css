@@ -1,0 +1,744 @@
+/* ===========================================================================
+   Everything below the hero, in a folk.com-inspired language: cool grey page,
+   slate ink, a rounded system face, lowercase, frosted cards with layered
+   soft shadows, glossy orbs, pastel bento washes. Values live in tokens.css
+   (--folk-*). The hero keeps MD3 and is untouched by this file.
+   =========================================================================== */
+
+/* Section rhythm: 30% tighter again (was 52 / 7.15vw / 98). */
+.section { position: relative; padding-block: clamp(36px, 5vw, 69px); }
+
+.folk-section {
+  background: var(--folk-page);
+  color: var(--folk-ink);
+  font-family: var(--folk-typeface);
+  letter-spacing: -0.005em;
+  /* folk sets everything lowercase. One switch: delete this line to go back
+     to the sentence-case copy, which is what the source text still is. */
+  text-transform: lowercase;
+}
+
+/* The hero sits on the MD3 surface; the first folk section eases into grey. */
+/* No gradient between the hero and the sections: one flat page colour. */
+
+.folk-section h2,
+.folk-section h3 { letter-spacing: -0.02em; font-weight: 600; line-height: 1.1; }
+
+/* --- shared pieces ---------------------------------------------------- */
+.folk-head { text-align: center; margin-bottom: clamp(24px, 3vw, 38px); }
+
+.folk-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--folk-ink-faint);
+  text-align: center;
+}
+
+.folk-title {
+  margin-top: 10px;
+  font-size: clamp(2rem, 1.3rem + 2.6vw, 3.4rem);
+  text-wrap: balance;
+}
+
+.folk-card {
+  background: var(--folk-card-fill);
+  box-shadow: var(--folk-card-shadow);
+  border-radius: var(--folk-radius-card);
+}
+
+/* The glossy sphere. Holds an md-icon or a letter. */
+.folk-orb {
+  --orb: 44px;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--orb);
+  height: var(--orb);
+  border-radius: 50%;
+  background: var(--folk-orb-fill);
+  box-shadow: var(--folk-orb-shadow);
+  --md-icon-size: calc(var(--orb) * 0.46);
+  font-variation-settings: 'FILL' 1;
+}
+.folk-orb--sm { --orb: 40px; }
+.folk-orb--lg { --orb: 76px; }
+.folk-orb--primary { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-primary); }
+.folk-orb--secondary { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-secondary); }
+.folk-orb--tertiary { background: var(--md-sys-color-tertiary-container); color: var(--md-sys-color-tertiary); }
+
+/* MD3 expressive shapes: a flat tonal fill masked to a cookie, clover,
+   sunny, flower or soft pentagon (the --md-shape-* masks in tokens.css). */
+.md-shape { border-radius: 0; -webkit-mask: var(--mask) center / contain no-repeat; mask: var(--mask) center / contain no-repeat; }
+.md-shape--cookie { --mask: var(--md-shape-cookie); }
+.md-shape--clover { --mask: var(--md-shape-clover); }
+.md-shape--sunny { --mask: var(--md-shape-sunny); }
+.md-shape--flower { --mask: var(--md-shape-flower); }
+.md-shape--pentagon { --mask: var(--md-shape-pentagon); }
+
+/* Pill row: orb + two lines, "title / with ...". */
+.folk-chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px 10px 10px;
+  border-radius: 999px;
+  background: var(--folk-card-fill);
+  box-shadow: var(--folk-card-shadow);
+  color: var(--folk-ink);
+  text-decoration: none;
+}
+.folk-chip__text { display: grid; line-height: 1.25; font-size: 0.95rem; }
+.folk-chip__text strong { font-weight: 600; }
+.folk-chip__text > span { color: var(--folk-ink-soft); font-size: 0.88rem; }
+.folk-chip__with { color: var(--folk-ink-faint); }
+
+.folk-card, .folk-chip--link {
+  transition:
+    box-shadow var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard),
+    translate var(--md-sys-motion-duration-medium2) var(--md-sys-motion-easing-standard);
+}
+.folk-chip--link:hover { box-shadow: var(--folk-card-shadow-hover); background: var(--md-sys-color-surface-container-low); }
+
+/* Pill tabs: a grey track, the chosen one a white raised pill. */
+.folk-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto clamp(28px, 4vw, 48px);
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--folk-track);
+}
+.folk-pill {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: inherit;
+  padding: 9px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--folk-ink-faint);
+  cursor: pointer;
+  transition: color var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+.folk-pill:hover { color: var(--folk-ink); }
+.folk-pill--on {
+  background: #fff;
+  color: var(--folk-ink);
+  box-shadow: inset 0 0 0 1px var(--folk-hairline);
+}
+
+/* Bento: a pastel-washed panel, label top-left, big line bottom-left. */
+.folk-bento {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 260px;
+  padding: clamp(22px, 2.6vw, 32px);
+  border-radius: var(--folk-radius-bento);
+  box-shadow: inset 0 0 0 1px var(--folk-hairline);
+  overflow: hidden;
+}
+.folk-bento--mint { background: var(--folk-wash-mint); }
+.folk-bento--peach { background: var(--folk-wash-peach); }
+.folk-bento--lilac { background: var(--folk-wash-lilac); }
+.folk-bento--sky { background: var(--folk-wash-sky); }
+
+.folk-bento__label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--folk-ink-soft);
+  --md-icon-size: 18px;
+  font-variation-settings: 'FILL' 1;
+}
+.folk-bento__title {
+  font-size: clamp(1.6rem, 1.1rem + 1.6vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+.folk-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 12px;
+  background: var(--folk-ink);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  --md-icon-size: 18px;
+  transition: translate var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard),
+    box-shadow var(--md-sys-motion-duration-short4) var(--md-sys-motion-easing-standard);
+}
+.folk-button:hover { background: color-mix(in srgb, var(--folk-ink) 88%, #fff); }
+
+.folk-link { color: var(--folk-ink-soft); font-weight: 600; text-decoration: none; }
+.folk-link:hover { color: var(--folk-ink); }
+
+.folk-section :focus-visible { outline-color: var(--folk-ink); }
+
+/* ------------------------------------------------------------ statement */
+.statement { padding-block: clamp(50px, 7.3vw, 100px); }
+
+.statement__text {
+  margin: 18px auto 0;
+  /* ~20% wider than the old 17ch-at-6rem measure (about 900px), with
+     smaller type, so the statement sets in 3 to 4 lines on desktop. */
+  max-width: min(100%, 1240px);
+  text-align: center;
+  font-size: clamp(2rem, 1.1rem + 3.4vw, 4.2rem);
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+.statement__word { display: inline; }
+
+/* The wordmark set inline as a word: its artwork is all caps with no
+   descenders, so it sits on the baseline at roughly cap height. */
+.statement__logo img {
+  display: inline-block;
+  height: 0.72em;
+  width: auto;
+  vertical-align: baseline;
+  margin: 0 0.06em;
+}
+
+.statement__aside {
+  margin: clamp(28px, 4vw, 44px) auto 0;
+  max-width: 44ch;
+  text-align: center;
+  font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.3rem);
+  color: var(--folk-ink-soft);
+  text-wrap: balance;
+}
+
+/* ---------------------------------------------------------------- steps */
+.steps {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 1180px;
+}
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+}
+.step__content { display: grid; gap: 2px; }
+.step__title { font-size: 1.1rem; }
+.step__body { color: var(--folk-ink-soft); font-size: 0.92rem; line-height: 1.35; }
+
+/* A small arrow orb between cards, so the three read as a sequence. It is
+   the Material Symbols ligature in generated content, so it needs no markup. */
+.steps { gap: 30px; }
+.step { position: relative; }
+.step:not(:last-child)::after {
+  content: 'arrow_forward';
+  position: absolute;
+  right: -29px;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+  font-family: var(--md-icon-font);
+  font-size: 16px;
+  font-feature-settings: 'liga';
+  text-transform: none;
+  box-shadow: 0 0 0 4px var(--folk-page);
+}
+
+@media (max-width: 1000px) {
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 640px; }
+  .step:nth-child(2)::after { display: none; }
+}
+@media (max-width: 860px) {
+  .steps { grid-template-columns: 1fr; max-width: 420px; gap: 16px; }
+  .step:not(:last-child)::after { display: none; }
+}
+
+/* -------------------------------------------------------------- overlap */
+.overlap__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 20px;
+  align-items: stretch;
+}
+.overlap__people { display: grid; gap: 20px; }
+
+.person {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px;
+}
+.person__avatar { font-weight: 700; font-size: 1.6rem; }
+.person__avatar--blue { color: var(--md-sys-color-primary); }
+.person__avatar--orange { color: var(--brand-phone-orange); background: color-mix(in srgb, var(--brand-phone-orange) 16%, #fff); }
+.person__content { display: grid; gap: 4px; min-width: 0; }
+.person__name { font-size: 1.25rem; }
+.person__by { font-size: 0.85rem; color: var(--folk-ink-faint); }
+.person__interests {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: var(--folk-track);
+  color: var(--folk-ink-soft);
+  --md-icon-size: 15px;
+}
+.tag--shared { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); font-weight: 600; padding-left: 8px; }
+
+.overlap__result { min-height: 100%; }
+
+.overlap__result { justify-content: flex-start; gap: clamp(20px, 2.6vw, 30px); }
+
+/* The shared-interest badge (SharedBadge.tsx): an oval container with a
+   turning, morphing MD3 shape inside, text fixed on top. */
+.shared-badge {
+  position: relative;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: clamp(180px, 17vw, 236px);
+  aspect-ratio: 1;
+}
+.shared-badge__art { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+/* One colour pair per example (MD3 container + its accent), cross-faded. */
+/* Per-interest themes (src/interestThemes.ts picks data-theme). */
+.shared-badge { --on-badge: #fff; }
+.shared-badge[data-theme="night"] { --badge-c: var(--interest-night-ring); --badge: var(--interest-night-form); }
+.shared-badge[data-theme="photography"] { --badge-c: var(--interest-photography-ring); --badge: var(--interest-photography-form); }
+.shared-badge[data-theme="music"] { --badge-c: var(--interest-music-ring); --badge: var(--interest-music-form); }
+.shared-badge[data-theme="art"] { --badge-c: var(--interest-art-ring); --badge: var(--interest-art-form); }
+.shared-badge[data-theme="food"] { --badge-c: var(--interest-food-ring); --badge: var(--interest-food-form); }
+.shared-badge[data-theme="drink"] { --badge-c: var(--interest-drink-ring); --badge: var(--interest-drink-form); }
+.shared-badge[data-theme="outdoors"] { --badge-c: var(--interest-outdoors-ring); --badge: var(--interest-outdoors-form); }
+.shared-badge[data-theme="sports"] { --badge-c: var(--interest-sports-ring); --badge: var(--interest-sports-form); }
+.shared-badge[data-theme="books"] { --badge-c: var(--interest-books-ring); --badge: var(--interest-books-form); }
+.shared-badge[data-theme="technology"] { --badge-c: var(--interest-technology-ring); --badge: var(--interest-technology-form); }
+.shared-badge[data-theme="gaming"] { --badge-c: var(--interest-gaming-ring); --badge: var(--interest-gaming-form); }
+.shared-badge[data-theme="travel"] { --badge-c: var(--interest-travel-ring); --badge: var(--interest-travel-form); }
+.shared-badge[data-theme="cinema"] { --badge-c: var(--interest-cinema-ring); --badge: var(--interest-cinema-form); }
+.shared-badge[data-theme="collecting"] { --badge-c: var(--interest-collecting-ring); --badge: var(--interest-collecting-form); }
+.shared-badge[data-theme="general"] { --badge-c: var(--interest-general-ring); --badge: var(--interest-general-form); }
+.shared-badge__oval,
+.shared-badge__form { transition: fill var(--md-sys-motion-duration-long2) var(--md-sys-motion-easing-standard); }
+.shared-badge__oval { fill: var(--badge-c); }
+.shared-badge__form { fill: var(--badge); }
+.shared-badge__motif {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.82;
+  pointer-events: none;
+}
+.theme-motif--night { fill: #fff; stroke: none; opacity: 1; }
+.theme-motif__part { transform-box: fill-box; }
+
+/* Motif animations, one per theme: ported from ios-mockup/interest-themes.css. */
+@media (prefers-reduced-motion: no-preference) {
+  .shared-badge[data-theme="night"] .theme-motif__part { transform-origin: center; animation: motif-twinkle 3s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="night"] .theme-motif__part:nth-child(2) { animation-delay: -1.7s; }
+  .shared-badge[data-theme="photography"] .theme-motif__part { transform-origin: 50% 75%; animation: motif-sway 4s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="photography"] .theme-motif__part:nth-child(2) { animation-delay: -2s; }
+  .shared-badge[data-theme="music"] .theme-motif__part { animation: motif-rise 2.6s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="music"] .theme-motif__part:nth-child(2) { animation-delay: -1.3s; }
+  .shared-badge[data-theme="art"] .theme-motif__part { stroke-dasharray: 24; animation: motif-draw 4s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="food"] .theme-motif__part:first-child { transform-origin: center; animation: motif-breathe 3.5s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="drink"] .theme-motif__part:nth-child(2), .shared-badge[data-theme="drink"] .theme-motif__part:nth-child(3) { animation: motif-rise 2.7s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="outdoors"] .theme-motif__part:last-child { animation: motif-drift 4s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="sports"] .theme-motif__part:first-child { animation: motif-bounce 2.3s ease-in-out infinite; }
+  .shared-badge[data-theme="books"] .theme-motif__part:last-child { animation: motif-page 3s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="technology"] .theme-motif__part:last-child { animation: motif-twinkle 2s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="gaming"] .theme-motif__part:last-child { animation: motif-breathe 2s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="travel"] .theme-motif__part:first-child { animation: motif-glide 4s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="cinema"] .theme-motif__part:last-child { animation: motif-breathe 2.5s ease-in-out infinite alternate; }
+  .shared-badge[data-theme="collecting"] .theme-motif__part:first-child { animation: motif-page 3s ease-in-out infinite alternate; }
+}
+@keyframes motif-twinkle { from { opacity: .25; transform: scale(.92); } to { opacity: 1; transform: scale(1.08); } }
+@keyframes motif-sway { from { transform: rotate(-2deg); } to { transform: rotate(2deg); } }
+@keyframes motif-rise { from { transform: translateY(1.5px); opacity: .6; } to { transform: translateY(-1.5px); opacity: 1; } }
+@keyframes motif-draw { from { stroke-dashoffset: 24; opacity: .45; } to { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes motif-breathe { from { transform: scale(.94); opacity: .55; } to { transform: scale(1.04); opacity: 1; } }
+@keyframes motif-drift { from { transform: translate(-1px, 1px) rotate(-2deg); } to { transform: translate(1px, -1px) rotate(2deg); } }
+@keyframes motif-bounce { 0%, 100% { transform: translateY(1px); } 50% { transform: translateY(-2px); } }
+@keyframes motif-page { from { transform: scaleX(.95); opacity: .5; } to { transform: scaleX(1.04); opacity: 1; } }
+@keyframes motif-glide { from { transform: translate(-2px, 1px); } to { transform: translate(2px, -1px); } }
+
+.shared-badge__text {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  max-width: 78%;
+  text-align: center;
+  color: var(--on-badge);
+}
+.shared-badge__kicker { white-space: nowrap; font-size: clamp(0.66rem, 0.6rem + 0.2vw, 0.76rem); font-weight: 600; opacity: 0.85; }
+.shared-badge__interest { font-size: clamp(1.05rem, 0.85rem + 0.6vw, 1.3rem); font-weight: 700; line-height: 1.15; }
+
+/* Circle on the left, the quoted reply beside it. */
+.overlap__pair {
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 2.6vw, 36px);
+  margin-block: auto;
+}
+@media (max-width: 560px) {
+  .overlap__pair { flex-direction: column; align-items: flex-start; }
+  .overlap__pair .shared-badge { align-self: center; }
+}
+
+/* Your reply, in quotation marks. */
+.overlap__reply {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  font-size: clamp(1.35rem, 1rem + 1.2vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--folk-ink);
+  text-wrap: balance;
+}
+.overlap__reply-who {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--folk-ink-faint);
+}
+
+.overlap__evidence {
+  max-width: 62ch;
+  margin: 28px auto 0;
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--folk-ink-soft);
+}
+.overlap__disclaimer {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--folk-ink-faint);
+}
+
+@media (max-width: 860px) {
+  .overlap__layout { grid-template-columns: 1fr; }
+}
+
+/* ----------------------------------------------------------- principles */
+.principles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 20px;
+}
+.principle { min-height: 0; justify-content: flex-start; gap: clamp(28px, 3vw, 40px); }
+.principle__foot { display: grid; gap: 10px; }
+.principle__body { color: var(--folk-ink-soft); font-size: 0.95rem; line-height: 1.45; max-width: 38ch; }
+
+
+/* -------------------------------------------------------------- closing */
+/* Back on the original MD3 primary panel (not a folk section: sentence case,
+   the brand face). Solid colour, no glow, no gradient: just the wordmark,
+   one line and one action. */
+.closing {
+  --cta-primary: var(--md-sys-color-primary);
+  --cta-on-primary: var(--md-sys-color-on-primary);
+  padding-block: clamp(84px, 11.2vw, 154px);
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  text-align: center;
+}
+
+.closing__inner { display: grid; justify-items: center; gap: clamp(18px, 2.4vw, 30px); }
+
+.closing__mark img {
+  width: min(88vw, 1240px);
+  height: auto;
+  /* The artwork is brand blue; on the panel it becomes plain white. */
+  filter: brightness(0) invert(1);
+}
+
+.closing__line {
+  font-size: var(--md-sys-typescale-headline-small-size);
+  font-weight: 500;
+  color: color-mix(in srgb, var(--md-sys-color-on-primary) 88%, transparent);
+}
+
+.closing__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 24px; }
+/* The filled button inverts on the panel: white container, blue label.
+   --cta-* are captured on the section first; setting primary and on-primary
+   from each other on the same element would be a custom-property cycle. */
+.closing md-filled-button {
+  --md-sys-color-primary: var(--cta-on-primary);
+  --md-sys-color-on-primary: var(--cta-primary);
+}
+.closing__link {
+  color: var(--md-sys-color-on-primary);
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0.85;
+}
+.closing__link:hover { opacity: 1; text-decoration: underline; }
+.closing :focus-visible { outline-color: var(--md-sys-color-on-primary); }
+
+/* --------------------------------------------------------------- footer */
+.footer { padding-top: clamp(56px, 7vw, 90px); overflow: hidden; }
+.footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 40px;
+}
+.footer__logo img { width: 84px; height: auto; margin-bottom: 14px; }
+.footer__brand p { color: var(--folk-ink-soft); font-size: 0.95rem; }
+.footer__faint { color: var(--folk-ink-faint) !important; font-size: 0.85rem !important; margin-top: 6px; }
+
+.footer__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.footer__head { font-size: 0.95rem; letter-spacing: 0; margin-bottom: 14px; }
+.footer__cols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.footer__cols a { color: var(--folk-ink-faint); text-decoration: none; font-size: 0.95rem; }
+.footer__cols a:hover { color: var(--folk-ink); }
+
+.footer__legal {
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-block: 18px 28px;
+  border-top: 1px solid var(--folk-hairline);
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--folk-ink-soft);
+}
+
+@media (max-width: 760px) {
+  .footer__top { grid-template-columns: 1fr; }
+  .footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* -------------------------------------------------------------- moments */
+.moments { padding-top: 0; }
+.moments__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.moment { align-items: center; min-height: 72px; }
+.moment .folk-chip__text strong { font-size: 0.92rem; line-height: 1.2; }
+.moments__note {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--folk-ink-faint);
+}
+@media (max-width: 1100px) { .moments__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .moments__grid { grid-template-columns: 1fr; } }
+
+/* ----------------------------------------------------------------- wave */
+/* Copy left, the app's own Wave notification and card right. Flat. */
+.wave {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(28px, 4vw, 64px);
+  min-height: 0;
+  padding: clamp(28px, 4vw, 56px);
+}
+.wave__copy { display: grid; gap: 16px; }
+.wave__copy .folk-bento__label { font-size: 1.05rem; color: var(--folk-ink); }
+.wave__title {
+  font-size: clamp(2rem, 1.3rem + 2.4vw, 3.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+.wave__body { color: var(--folk-ink-soft); max-width: 46ch; line-height: 1.5; }
+.wave__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.wave__facts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px 7px 10px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--folk-hairline);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--folk-ink-soft);
+  --md-icon-size: 17px;
+}
+.wave__facts md-icon { color: var(--md-sys-color-tertiary); }
+
+.wave__demo { display: grid; justify-items: center; gap: 14px; }
+.wave__demo .app-notice { rotate: -2deg; }
+.wave__demo .app-wave { rotate: 1.5deg; }
+
+@media (max-width: 860px) {
+  .wave { grid-template-columns: 1fr; }
+}
+
+/* -------------------------------------------------------------- problem */
+.problem__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.problem__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: clamp(22px, 2.4vw, 32px);
+  border-radius: var(--folk-radius-bento);
+}
+.problem__stat--primary { background: var(--md-sys-color-primary-container); --figure: var(--md-sys-color-primary); }
+.problem__stat--tertiary { background: var(--md-sys-color-tertiary-container); --figure: var(--md-sys-color-tertiary); }
+.problem__figure {
+  font-family: var(--md-ref-typeface-brand);
+  font-size: clamp(3.4rem, 1.8rem + 5.6vw, 7rem);
+  margin-top: 6px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--figure);
+  text-transform: none;
+}
+.problem__line {
+  font-size: clamp(1.3rem, 1rem + 1vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  padding-bottom: 14px;
+}
+/* Citations keep their real capitals (authors, titles). */
+.problem__cite,
+.problem__papers { text-transform: none; }
+.problem__cite {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--folk-hairline);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--folk-ink-soft);
+}
+
+.problem__why {
+  margin: clamp(28px, 3.5vw, 44px) 0 18px;
+  text-align: center;
+  font-size: clamp(1.3rem, 1rem + 1vw, 1.8rem);
+}
+.problem__reasons {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.problem__reason { display: flex; flex-direction: column; gap: 10px; padding: 20px; }
+.problem__q { margin: 4px 0 0; font-size: 1.08rem; }
+.problem__finding { color: var(--folk-ink-soft); font-size: 0.92rem; line-height: 1.45; }
+.problem__papers {
+  display: grid;
+  gap: 8px;
+  margin: auto 0 0;
+  padding: 12px 0 0;
+  list-style: none;
+  border-top: 1px solid var(--folk-hairline);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.problem__papers a { color: var(--folk-ink-soft); text-decoration: none; }
+.problem__papers a:hover { color: var(--md-sys-color-primary); text-decoration: underline; }
+
+@media (max-width: 1100px) { .problem__reasons { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .problem__stats, .problem__reasons { grid-template-columns: 1fr; }
+}
+
+/* ---------------------------------------------------------------- stack */
+/* Two marquee rows scrolling in opposite directions. Pauses on hover. */
+.stack { overflow: hidden; }
+.stack__row { display: flex; overflow: hidden; padding-block: 6px; }
+.stack__row + .stack__row { margin-top: 10px; }
+.stack__track {
+  display: flex;
+  gap: 12px;
+  margin: 0;
+  padding: 0 6px;
+  list-style: none;
+  width: max-content;
+  animation: stack-scroll 60s linear infinite;
+}
+.stack__row--reverse .stack__track { animation-direction: reverse; animation-duration: 70s; }
+.stack__row:hover .stack__track { animation-play-state: paused; }
+.stack__item { flex: none; padding-right: 22px; }
+/* API and framework names keep their real case (NISession, P2P, API). */
+.stack__item { text-transform: none; }
+.stack__item .folk-chip__text > span { white-space: nowrap; }
+
+/* The track holds the list twice; moving it by half loops seamlessly. */
+@keyframes stack-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% - 6px)); }
+}
+
+/* Reduced motion: no scrolling, the rows wrap into a static grid. */
+@media (prefers-reduced-motion: reduce) {
+  .stack__row { overflow: visible; justify-content: center; }
+  .stack__track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; max-width: var(--shell); }
+  .stack__track > [aria-hidden='true'] { display: none; }
+}

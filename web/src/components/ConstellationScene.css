@@ -1,0 +1,454 @@
+.constellation {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: var(--aster-paper);
+  background: var(--aster-ink);
+  border-radius: 2px;
+}
+
+.constellation__scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: 520px;
+  overflow: hidden;
+}
+
+.constellation__atlas-label,
+.constellation__coordinate,
+.constellation__graph-labels,
+.constellation__caption,
+.constellation__small-label,
+.constellation__connection-note {
+  font-family: var(--aster-font-mono, monospace);
+}
+
+.constellation__atlas-label {
+  position: absolute;
+  top: 5.6%;
+  left: 6%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+  font-size: clamp(9px, 0.8vw, 11px);
+  letter-spacing: 0.045em;
+  color: color-mix(in srgb, var(--aster-paper) 78%, transparent);
+}
+
+.constellation__live-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--aster-ember);
+}
+
+.constellation__coordinate {
+  position: absolute;
+  right: 6%;
+  bottom: 8%;
+  z-index: 2;
+  font-size: 8px;
+  letter-spacing: 0.065em;
+  color: color-mix(in srgb, var(--aster-paper) 42%, transparent);
+  writing-mode: vertical-rl;
+}
+
+.constellation__graph {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.constellation__guides {
+  fill: none;
+  stroke: color-mix(in srgb, var(--aster-paper) 12%, transparent);
+  stroke-width: 0.7;
+}
+
+.constellation__guides circle:nth-child(2) {
+  stroke-dasharray: 2 7;
+  transform-origin: 300px 274px;
+  animation: constellation-orbit 100s linear infinite;
+}
+
+.constellation__guides path {
+  stroke: color-mix(in srgb, var(--aster-paper) 7%, transparent);
+}
+
+.constellation__dust {
+  fill: color-mix(in srgb, var(--aster-paper) 36%, transparent);
+}
+
+.constellation__network {
+  transform-origin: 300px 165px;
+  animation: constellation-drift 14s ease-in-out infinite;
+}
+
+.constellation__edges {
+  stroke: color-mix(in srgb, var(--aster-paper) 25%, transparent);
+  stroke-width: 0.8;
+}
+
+.constellation__traces {
+  fill: none;
+  stroke: var(--aster-sage);
+  stroke-width: 1.4;
+  stroke-dasharray: 18 490;
+  stroke-linecap: round;
+}
+
+.constellation__traces path {
+  animation: constellation-trace 9s linear infinite;
+}
+
+.constellation__traces path:nth-child(2) {
+  stroke: var(--aster-ember);
+  animation-delay: -4.5s;
+}
+
+.constellation__star {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: constellation-breathe 6s ease-in-out infinite;
+}
+
+.constellation__star--paper { fill: var(--aster-paper); }
+.constellation__star--sage { fill: var(--aster-sage); }
+.constellation__star--ember { fill: var(--aster-ember); }
+
+.constellation__connection {
+  fill: none;
+  stroke: var(--aster-ember);
+  stroke-width: 1.1;
+  stroke-dasharray: 3 5;
+  opacity: 0.8;
+  animation: constellation-flow 20s linear infinite;
+}
+
+.constellation__meeting-ring {
+  fill: none;
+  stroke: var(--aster-ember);
+  stroke-width: 0.7;
+  transform-origin: 300px 317px;
+  animation: constellation-ripple 6s ease-out infinite;
+}
+
+.constellation__meeting-ring--outer {
+  opacity: 0.3;
+  animation-delay: -3s;
+}
+
+.constellation__graph-labels {
+  fill: color-mix(in srgb, var(--aster-paper) 58%, transparent);
+  font-size: 7px;
+  letter-spacing: 1.1px;
+}
+
+.constellation__phones {
+  position: absolute;
+  inset: 0;
+}
+
+.constellation__phone {
+  position: absolute;
+  bottom: 9.5%;
+  width: 31.5%;
+  aspect-ratio: 0.492;
+  padding: 5px;
+  border: 1px solid color-mix(in srgb, var(--aster-paper) 45%, var(--aster-ink));
+  border-radius: clamp(24px, 2.5vw, 32px);
+  background: var(--aster-ink);
+  box-shadow: 0 16px 26px color-mix(in srgb, var(--aster-ink) 60%, transparent);
+  transform-origin: center;
+  will-change: transform;
+}
+
+.constellation__phone::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 21%;
+  width: 2px;
+  height: 9%;
+  border-radius: 1px;
+  background: color-mix(in srgb, var(--aster-paper) 50%, var(--aster-ink));
+}
+
+.constellation__phone--sage {
+  left: 14%;
+  --phone-rotation: -12deg;
+  --phone-float: -5px;
+  animation: constellation-phone 10s ease-in-out infinite;
+  transform: rotate(var(--phone-rotation));
+}
+
+.constellation__phone--ember {
+  right: 12%;
+  bottom: 7%;
+  --phone-rotation: 10deg;
+  --phone-float: 6px;
+  animation: constellation-phone 10s ease-in-out var(--phone-delay, -2s) infinite;
+  transform: rotate(var(--phone-rotation));
+}
+
+.constellation__screen {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: clamp(19px, 2.1vw, 27px);
+  color: var(--aster-ink);
+  background: var(--aster-paper);
+  padding: 5% 8.5% 10%;
+  font-family: inherit;
+}
+
+.constellation__status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5.5%;
+  margin-bottom: 9%;
+  font-size: clamp(7px, 0.65vw, 9px);
+  font-weight: 600;
+}
+
+.constellation__island {
+  width: 38%;
+  height: 11px;
+  border-radius: 10px;
+  background: var(--aster-ink);
+}
+
+.constellation__signal {
+  font-size: 7px;
+  letter-spacing: -1.4px;
+}
+
+.constellation__app-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.constellation__app-name {
+  display: flex;
+  gap: 3px;
+  align-items: baseline;
+  font-size: clamp(13px, 1.35vw, 20px);
+  font-weight: 750;
+  letter-spacing: -0.065em;
+}
+
+.constellation__app-name span { color: var(--aster-ember); font-size: 12px; }
+.constellation__app-menu { font-weight: 700; font-size: 16px; line-height: 1; }
+
+.constellation__profile {
+  text-align: center;
+  padding-top: 13%;
+}
+
+.constellation__avatar {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48%;
+  aspect-ratio: 1;
+  margin: 0 auto 10%;
+  border-radius: 50%;
+  background: var(--aster-sage);
+  overflow: hidden;
+}
+
+.constellation__phone--ember .constellation__avatar {
+  background: color-mix(in srgb, var(--aster-ember) 22%, var(--aster-paper));
+}
+
+.constellation__avatar span {
+  position: relative;
+  z-index: 1;
+  font-family: Georgia, serif;
+  font-size: clamp(27px, 3.2vw, 45px);
+  line-height: 1;
+  font-style: italic;
+}
+
+.constellation__avatar svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  stroke: color-mix(in srgb, var(--aster-ink) 12%, transparent);
+  stroke-width: 0.7;
+}
+
+.constellation__small-label {
+  display: block;
+  font-size: clamp(5px, 0.5vw, 7px);
+  letter-spacing: 0.025em;
+  color: color-mix(in srgb, var(--aster-ink) 60%, var(--aster-paper));
+}
+
+.constellation__profile h3 {
+  margin: 5% 0;
+  font-family: inherit;
+  font-size: clamp(18px, 1.95vw, 27px);
+  font-weight: 550;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.constellation__profile p,
+.constellation__shared p {
+  margin: 0;
+  font-size: clamp(7px, 0.7vw, 10px);
+  line-height: 1.5;
+}
+
+.constellation__profile p {
+  color: color-mix(in srgb, var(--aster-ink) 65%, var(--aster-paper));
+}
+
+.constellation__shared {
+  margin-top: 12%;
+  padding: 10% 10%;
+  border: 1px solid color-mix(in srgb, var(--aster-ink) 12%, transparent);
+  border-radius: 3px;
+  text-align: left;
+}
+
+.constellation__shared-name {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 8% 0;
+  font-size: clamp(11px, 1vw, 14px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.constellation__shared-name span { color: var(--aster-ember); font-size: 15px; }
+
+.constellation__home-bar {
+  position: absolute;
+  bottom: 2.5%;
+  left: 33%;
+  width: 34%;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--aster-ink);
+}
+
+.constellation__connection-note {
+  position: absolute;
+  left: 6%;
+  bottom: 3.2%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: clamp(8px, 0.72vw, 10px);
+  color: color-mix(in srgb, var(--aster-paper) 70%, transparent);
+}
+
+.constellation__note-line {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--aster-ember);
+}
+
+.constellation__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 45px;
+  padding: 12px 6%;
+  border-top: 1px solid color-mix(in srgb, var(--aster-paper) 18%, transparent);
+  color: color-mix(in srgb, var(--aster-paper) 64%, transparent);
+  font-size: 8px;
+  line-height: 1.5;
+  letter-spacing: 0.035em;
+}
+
+.constellation__caption > span:last-child { color: var(--aster-sage); }
+.constellation__caption > span:last-child > span { margin-inline: 7px; opacity: 0.4; }
+
+@keyframes constellation-orbit { to { transform: rotate(360deg); } }
+@keyframes constellation-drift {
+  0%, 100% { transform: translate(0, 0) rotate(-0.7deg); }
+  50% { transform: translate(3px, -3px) rotate(0.7deg); }
+}
+@keyframes constellation-trace { to { stroke-dashoffset: -508; } }
+@keyframes constellation-flow { to { stroke-dashoffset: -160; } }
+@keyframes constellation-breathe {
+  0%, 100% { opacity: 0.8; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.12); }
+}
+@keyframes constellation-ripple {
+  0% { transform: scale(0.76); opacity: 0.52; }
+  100% { transform: scale(1.3); opacity: 0.08; }
+}
+@keyframes constellation-phone {
+  0%, 100% { transform: translateY(0) rotate(var(--phone-rotation)); }
+  50% { transform: translateY(var(--phone-float)) rotate(var(--phone-rotation)); }
+}
+
+.constellation--paused *,
+.constellation--paused *::before,
+.constellation--paused *::after {
+  animation-play-state: paused !important;
+}
+
+@media (max-width: 860px) {
+  .constellation__scene { min-height: 460px; }
+  .constellation__phone { width: 29%; }
+  .constellation__phone--sage { left: 17%; }
+  .constellation__phone--ember { right: 15%; }
+  .constellation__profile h3 { font-size: clamp(20px, 3.2vw, 30px); }
+  .constellation__app-name { font-size: clamp(14px, 2.4vw, 21px); }
+  .constellation__profile p,
+  .constellation__shared p { font-size: clamp(8px, 1.4vw, 11px); }
+  .constellation__shared-name { font-size: clamp(12px, 2.1vw, 16px); }
+  .constellation__small-label { font-size: clamp(6px, 1vw, 8px); }
+  .constellation__avatar span { font-size: clamp(30px, 5vw, 46px); }
+}
+
+@media (max-width: 560px) {
+  .constellation__scene { aspect-ratio: 0.81; }
+  .constellation__graph { top: -6%; height: 86%; }
+  .constellation__phone { width: 34%; padding: 4px; bottom: 14%; border-radius: 24px; }
+  .constellation__phone--sage { left: 12%; }
+  .constellation__phone--ember { right: 10%; bottom: 11%; }
+  .constellation__screen { border-radius: 20px; }
+  .constellation__profile { padding-top: 8%; }
+  .constellation__avatar { width: 44%; margin-bottom: 6%; }
+  .constellation__profile h3 { font-size: clamp(17px, 4.6vw, 24px); }
+  .constellation__profile p,
+  .constellation__shared p { font-size: clamp(6px, 1.7vw, 9px); }
+  .constellation__small-label { font-size: clamp(4px, 1.25vw, 6px); }
+  .constellation__shared-name { font-size: clamp(9px, 2.6vw, 13px); }
+  .constellation__app-name { font-size: clamp(13px, 3.6vw, 17px); }
+  .constellation__avatar span { font-size: 30px; }
+  .constellation__island { height: 8px; }
+  .constellation__shared { margin-top: 9%; padding: 8% 8%; }
+  .constellation__coordinate { bottom: 14%; right: 5%; font-size: 7px; }
+  .constellation__atlas-label { top: 5%; max-width: 46%; font-size: 8px; line-height: 1.5; }
+  .constellation__live-dot { flex-shrink: 0; }
+  .constellation__connection-note { bottom: 4.5%; font-size: 8px; }
+  .constellation__caption { font-size: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .constellation *,
+  .constellation *::before,
+  .constellation *::after { animation: none !important; }
+  .constellation__phone { will-change: auto; }
+}

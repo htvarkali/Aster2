@@ -1,0 +1,36 @@
+/* Foreground fragments on the hero: the app's own UI (AppUI.css). Positions
+   and tilt come inline from the FLOATERS table (the CSS `rotate` property,
+   so GSAP's rotation adds to it). Above the phones and the contact mark. */
+
+.hero__floaters {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hero__float { position: absolute; }
+/* Sized for a 1440px screen; the scale sits on the inner element, not the
+   one GSAP moves, so it never gets folded into GSAP's transform. MD3
+   elevation level 2 separates them from the photographs behind. */
+.hero__float > * {
+  scale: 0.92;
+  transform-origin: center;
+  box-shadow: inset 0 0 0 1px var(--folk-hairline), var(--md-sys-elevation-level2);
+}
+/* The Wave card is the tallest piece: 25% smaller than the rest here (0.92
+   x 0.75). Hero only; the Wave section shows it full size. */
+.hero__float--wave > * { scale: 0.69; transform-origin: top right; }
+.hero__float--ready > * { box-shadow: none; }
+.hero__float--ready .app-pill { background: #fff; box-shadow: inset 0 0 0 1px var(--folk-hairline), var(--md-sys-elevation-level2); font-size: 14px; padding: 9px 16px 9px 13px; }
+
+/* Mobile has no free side bands: the phones take the full width. */
+@media (max-width: 860px) {
+  .hero__floaters { display: none; }
+}
+
+/* Reduced motion stacks the hero in normal flow; absolute fragments would
+   land on top of it. The static page does without them. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__floaters { display: none; }
+}

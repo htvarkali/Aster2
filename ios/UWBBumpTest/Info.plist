@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundleDisplayName</key>
+    <string>Aster</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>BumpAPIBaseURL</key>
+	<string>$(BUMP_API_BASE_URL)</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Aster records a short spoken intro (up to 45 seconds) so it can be transcribed into your profile, only if you choose to record. The audio is deleted from your phone after transcription.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Aster uses the motion sensor to feel the moment you tap phones with someone. Motion data stays on your iPhone.</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>NSSupportsLiveActivitiesFrequentUpdates</key>
+	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Aster uses Bluetooth to notice the phone next to you while you are using another app, so a bump still works without Aster on screen.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<!-- Documented: from iOS 18.4 Nearby Interaction can keep ranging in the
+		     background while a Live Activity is running. -->
+		<string>nearby-interaction</string>
+		<!-- Needed for the background discovery transport. Multipeer stops when
+		     backgrounded, so background sessions use Core Bluetooth instead. -->
+		<string>bluetooth-central</string>
+		<string>bluetooth-peripheral</string>
+	</array>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_bump-uwb._tcp</string>
+		<string>_bump-uwb._udp</string>
+		<string>_bump-streetpass._tcp</string>
+		<string>_bump-streetpass._udp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Aster uses the local network to find the phones in your event so you can bump with someone standing next to you.</string>
+	<key>NSNearbyInteractionUsageDescription</key>
+	<string>Aster measures the distance to a nearby iPhone so it can tell which person you actually bumped.</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Archivo-Regular.ttf</string>
+		<string>Archivo-Medium.ttf</string>
+		<string>Archivo-SemiBold.ttf</string>
+		<string>Archivo-Bold.ttf</string>
+		<string>Archivo-ExtraBold.ttf</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+</dict>
+</plist>
